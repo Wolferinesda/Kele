@@ -5,7 +5,7 @@ class Kele
 # Createing Kele class to set basis for kele function
   include HTTParty
 # includes HTTParty when the class loads
-  bloc_base_api_url 'https://www.bloc.io/api/v1'
+  base_uri 'https://www.bloc.io/api/v1'
 # the base api url so that Kele loads the bloc url for the code to use
   def initialize(email, password)
 # new initialize method to process the emails and passwords entered
