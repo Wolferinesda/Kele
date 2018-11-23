@@ -36,7 +36,7 @@ class Kele
     JSON.parse(response.body)
   end
 
-  def create_messages(sender, recipient_id, token, subject, stripped_text)
+  def create_messages(sender, recipient_id, token = nil, subject, stripped_text)
     response = self.class.get("/messages", headers: { "authorization" => @user_auth_token },
     body: {
       sender: sender,
@@ -46,5 +46,18 @@ class Kele
       stripped_text: stripped_text
     })
   end
+
+  def get_remaining_checkpoints(chain_id)
+    response = self.class.get("/enrollment_chains/#{chain_id}/checkpoints_remaining_in_section", headers: { "authorization" => @user_auth_token })
+    remaining_checkpoints = []
+    JSON.parse(response.body).each do |remaining|
+        if remaining["active_index"] = nil
+          remaining_checkpoints << remaining
+        else
+          remaining_checkpoints << "All checkpoints are complete for this section :)"
+        end
+      end
+      remaining_checkpoints
+    end
 
 end
